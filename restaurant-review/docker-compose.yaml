@@ -42,17 +42,34 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: h2-file
+      KC_PROXY: edge
+      KC_HOSTNAME: lucina-headed-manifoldly.ngrok-free.dev
+      KC_HOSTNAME_STRICT_HTTPS: true
     volumes:
       - keycloak-data:/opt/keycloak/data
     command:
       - start-dev
       - --db=dev-file
 
+  postgres:
+    image: postgres:15
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: restaurantdatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   elasticsearch-data:
     driver: local
   keycloak-data:
     driver: local
+  postgres_data:
 
 networks:
   elastic:
