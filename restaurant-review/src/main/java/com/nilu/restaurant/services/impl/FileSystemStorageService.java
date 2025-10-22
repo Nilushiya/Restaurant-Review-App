@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -85,6 +86,24 @@ public class FileSystemStorageService implements StorageService {
         } catch(MalformedURLException e) {
             log.warn("Could not read file: %s".formatted(filename), e);
             return Optional.empty();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete(String filename) {
+        try {
+            Path file = rootLocation.resolve(filename).normalize().toAbsolutePath();
+
+            if (!file.getParent().equals(rootLocation.toAbsolutePath())) {
+                throw new StorageException("Cannot delete file outside of upload directory");
+            }
+
+            Files.deleteIfExists(file);
+
+            log.info("Deleted file: {}", filename);
+        } catch (IOException e) {
+            throw new StorageException("Failed to delete file " + filename, e);
         }
     }
 

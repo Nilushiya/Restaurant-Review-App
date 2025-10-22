@@ -1,13 +1,22 @@
 package com.nilu.restaurant;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.nilu.restaurant.repositories.jpa")
-@EnableElasticsearchRepositories(basePackages = "com.nilu.restaurant.repositories.elastric")
+//@SecurityScheme(
+//		name = "KeyCloak",
+//		openIdConnectUrl = "https://lucina-headed-manifoldly.ngrok-free.dev/realms/restaurant-review/.well-known/openid-configuration",
+//		scheme = "bearer",
+//		type = SecuritySchemeType.OPENIDCONNECT,
+//		in =  SecuritySchemeIn.HEADER
+//
+//)
+@SpringBootApplication(scanBasePackages = "com.nilu.restaurant")
+
+//@SpringBootApplication
 public class RestaurantApplication {
 
 	public static void main(String[] args) {

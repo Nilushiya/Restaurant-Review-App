@@ -10,10 +10,51 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Start the ngrok use cmd then get https url use this in the keycloud AuthProvider and google cloud credentials -> https://lucina-headed-manifoldly.ngrok-free.dev -> http://localhost:9090     port should be keyclock port
 
    ```bash
-   npx expo start
+   ngrok http 9090  
+   ```
+
+3. Start the keyclock with ngrok url
+
+   ```bash
+   1. https://lucina-headed-manifoldly.ngrok-free.dev/admin/master/console 
+   2. realm - restaurant-review
+   3. create client 
+         Client ID : reactNative-app
+         Valid redirect URIs : exp://*
+                              exp://172.20.108.47:8081
+                              https://lucina-headed-manifoldly.ngrok-free.dev/*
+         Web origins : *
+   4.save
+
+   user tab create user
+   1.userName
+   2.Email
+   3.create
+   4.set password
+
+   add provider
+   1.select provider
+   2.go to the google cloud credential
+   3.click credential
+   4.select auth client ID
+   5.Application type select web application
+   6.give one name in the Name tab
+   7copy the keyclock redirect url that show after click provider 
+   8.create 
+   9.add 
+   10.save the client id and secret
+   11.go to the keyclock then add client id and secret
+   12.Scopes : openid email profile
+   13.save
+   ```
+
+4. Start the app
+
+   ```bash
+   npx expo start --lan -c
    ```
 
 In the output, you'll find options to open the app in a

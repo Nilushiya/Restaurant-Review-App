@@ -7,11 +7,14 @@ import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RestaurantElasticRepository extends ElasticsearchRepository<Restaurant, String> {
 
     Page<Restaurant> findByAverageRatingGreaterThanEqual(Float minRating, Pageable pageable);
 
+    List<Restaurant> findByCreatedById(String ownerId);
     @Query("{" +
             "  \"bool\": {" +
             "    \"must\": [" +
@@ -20,6 +23,8 @@ public interface RestaurantElasticRepository extends ElasticsearchRepository<Res
             "    \"should\": [" +
             "      {\"fuzzy\": {\"name\": {\"value\": \"?0\", \"fuzziness\": \"AUTO\"}}}," +
             "      {\"fuzzy\": {\"cuisineType\": {\"value\": \"?0\", \"fuzziness\": \"AUTO\"}}}" +
+//            "      {\"wildcard\": {\"name\": {\"value\": \"*?0*\"}}}," +
+//            "      {\"wildcard\": {\"cuisineType\": {\"value\": \"*?0*\"}}}" +
             "    ]," +
             "    \"minimum_should_match\": 1" +
             "  }" +

@@ -5,14 +5,16 @@ import com.nilu.restaurant.domain.RestaurantCreateUpdateRequest;
 import com.nilu.restaurant.domain.entities.Address;
 import com.nilu.restaurant.domain.entities.Photo;
 import com.nilu.restaurant.domain.entities.Restaurant;
+import com.nilu.restaurant.domain.entities.User;
 import com.nilu.restaurant.exceptions.RestaurantNotFoundException;
-import com.nilu.restaurant.repositories.jpa.RestaurantJPARepo;
 import com.nilu.restaurant.repositories.elastric.RestaurantElasticRepository;
 import com.nilu.restaurant.services.GeoLocationService;
 import com.nilu.restaurant.services.RestaurantService;
+import com.nilu.restaurant.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.ResourceNotFoundException;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantElasticRepository restaurantRepository;
     private final GeoLocationService geoLocationService;
-    private final RestaurantJPARepo restaurantJPARepo;
-
+    private final StorageService storageService;
     @Override
-    public Restaurant createRestaurant(RestaurantCreateUpdateRequest request) {
+    public Restaurant createRestaurant(RestaurantCreateUpdateRequest request, User user) {
         Address address = request.getAddress();
-//        Address id = null
         GeoLocation geoLocation = geoLocationService.geoLocate(address);
         GeoPoint geoPoint = new GeoPoint(geoLocation.getLatitude(), geoLocation.getLongitude());
 
@@ -50,10 +50,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .operatingHours(request.getOperatingHours())
                 .averageRating(0f)
                 .photos(photos)
+                .createdBy(user)
                 .build();
-        Restaurant storedRestaurant =  restaurantJPARepo.save(restaurant);
-        restaurantRepository.save(restaurant);
-        return storedRestaurant;
+
+        return restaurantRepository.save(restaurant);
     }
 
     @Override
@@ -81,6 +81,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Optional<Restaurant> getRestaurant(String id) {
         return restaurantRepository.findById(id);
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantsByOwnerId(String ownerId) {
+        return restaurantRepository.findByCreatedById(ownerId);
     }
 
     @Override
@@ -113,7 +118,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void deleteRestaurant(String id) {
+        var restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found: " + id));
+        restaurant.getPhotos().forEach(photo -> {
+            try {
+                storageService.delete(photo.getUrl());
+            } catch (Exception e) {
+                System.out.println("Failed to delete photo file: {}");
+            }
+        });
         restaurantRepository.deleteById(id);
     }
-
 }

@@ -51,25 +51,24 @@ services:
       - start-dev
       - --db=dev-file
 
-  postgres:
-    image: postgres:15
-    container_name: postgres_container
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: restaurantdatabase
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+#  postgres:
+#    image: postgres:15
+#    container_name: postgres_container
+#    restart: always
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: restaurantdatabase
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   elasticsearch-data:
     driver: local
   keycloak-data:
     driver: local
-  postgres_data:
 
 networks:
   elastic:

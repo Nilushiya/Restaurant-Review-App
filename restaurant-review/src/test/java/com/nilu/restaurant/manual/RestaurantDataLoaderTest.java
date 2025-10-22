@@ -37,36 +37,36 @@ public class RestaurantDataLoaderTest {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @Test
-    @Rollback(false) // Allow changes to persist
-    public void createSampleRestaurants() throws Exception {
-        List<RestaurantCreateUpdateRequest> restaurants = createRestaurantData();
-        restaurants.forEach(restaurant -> {
-            String fileName = restaurant.getPhotoIds().getFirst();
-            Resource resource = resourceLoader.getResource("classpath:testdata/" + fileName);
-            MultipartFile multipartFile = null;
-            try {
-                multipartFile = new MockMultipartFile(
-                        "file", // parameter name
-                        fileName, // original filename
-                        MediaType.IMAGE_PNG_VALUE,
-                        resource.getInputStream()
-                );
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-
-            // Call the service method
-            Photo uploadedPhoto = photoService.uploadPhoto(multipartFile);
-
-            restaurant.setPhotoIds(List.of(uploadedPhoto.getUrl()));
-
-            restaurantService.createRestaurant(restaurant);
-
-            System.out.println("Created restaurant: " + restaurant.getName());
-        });
-    }
+//    @Test
+//    @Rollback(false) // Allow changes to persist
+//    public void createSampleRestaurants() throws Exception {
+//        List<RestaurantCreateUpdateRequest> restaurants = createRestaurantData();
+//        restaurants.forEach(restaurant -> {
+//            String fileName = restaurant.getPhotoIds().getFirst();
+//            Resource resource = resourceLoader.getResource("classpath:testdata/" + fileName);
+//            MultipartFile multipartFile = null;
+//            try {
+//                multipartFile = new MockMultipartFile(
+//                        "file", // parameter name
+//                        fileName, // original filename
+//                        MediaType.IMAGE_PNG_VALUE,
+//                        resource.getInputStream()
+//                );
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//
+//            // Call the service method
+//            Photo uploadedPhoto = photoService.uploadPhoto(multipartFile);
+//
+//            restaurant.setPhotoIds(List.of(uploadedPhoto.getUrl()));
+//
+//            restaurantService.createRestaurant(restaurant);
+//
+//            System.out.println("Created restaurant: " + restaurant.getName());
+//        });
+//    }
 
     private List<RestaurantCreateUpdateRequest> createRestaurantData() {
         return Arrays.asList(

@@ -30,12 +30,12 @@ public class ReviewServiceImpl implements ReviewService {
     public Review createReview(User author, String restaurantId, ReviewCreateUpdateRequest review) {
         Restaurant restaurant = getRestaurantOrThrow(restaurantId);
 
-        boolean hasExistingReview = restaurant.getReviews().stream()
-                .anyMatch(r -> r.getWrittenBy().getId().equals(author.getId()));
-
-        if(hasExistingReview) {
-            throw new ReviewNotAllowedException("User has already reviewed this restaurant");
-        }
+//        boolean hasExistingReview = restaurant.getReviews().stream()
+//                .anyMatch(r -> r.getWrittenBy().getId().equals(author.getId()));
+//
+//        if(hasExistingReview) {
+//            throw new ReviewNotAllowedException("User has already reviewed this restaurant");
+//        }
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -167,6 +167,28 @@ public class ReviewServiceImpl implements ReviewService {
         updateRestaurantAverageRating(restaurant);
 
         restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public List<Restaurant> getReviewByReviewer(User user) {
+        String reviewerId = user.getId();
+        Iterable<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> reviewsByUser = new ArrayList<>();
+
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getReviews() != null) {
+                boolean hasReviewByUser = restaurant.getReviews().stream()
+                        .anyMatch(review ->
+                                review.getWrittenBy() != null &&
+                                        reviewerId.equals(review.getWrittenBy().getId()));
+
+                if (hasReviewByUser) {
+                    reviewsByUser.add(restaurant);
+                }
+            }
+        }
+
+        return reviewsByUser;
     }
 
     private Restaurant getRestaurantOrThrow(String restaurantId) {
