@@ -81,8 +81,7 @@ public class ReviewController {
     public ResponseEntity<List<RestaurantDto>> getReviewsByReviewer(
             @AuthenticationPrincipal Jwt jwt
     ) {
-        User user = jwtToUser(jwt);
-33333333333333        List<RestaurantDto> restaurant = reviewService.getReviewByReviewer(user).stream()
+        User user = jwtToUser(jwt);List<RestaurantDto> restaurant = reviewService.getReviewByReviewer(user).stream()
                 .map(restaurantMapper::toRestaurantDto)
                 .collect(Collectors.toList());
 
