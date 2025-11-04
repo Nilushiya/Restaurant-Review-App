@@ -1,0 +1,18 @@
+h1{
+    text-align: center;
+    margin-top: 15px;
+}
+.resturandcard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Mobile responsive - 1 card per row */
+@media (max-width: 768px) {
+  .resturandcard {
+    grid-template-columns: 1fr;
+  }
+}
+

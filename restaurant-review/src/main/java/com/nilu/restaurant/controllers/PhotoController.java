@@ -22,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "KeyCloak")
 @RequestMapping(path = "/api/photos")
+@CrossOrigin("*")
 public class PhotoController {
 
     private final PhotoService photoService;

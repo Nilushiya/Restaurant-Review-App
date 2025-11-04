@@ -28,6 +28,7 @@ import static com.nilu.restaurant.utils.JwtUtils.jwtToUser;
 @RequestMapping(path = "/api/restaurants")
 @SecurityRequirement(name = "KeyCloak")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;

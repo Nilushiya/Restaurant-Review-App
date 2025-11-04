@@ -30,6 +30,7 @@ import static com.nilu.restaurant.utils.JwtUtils.jwtToUser;
 @RequestMapping(path = "/api/reviews")
 @SecurityRequirement(name = "KeyCloak")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ReviewController {
 
     private final ReviewMapper reviewMapper;

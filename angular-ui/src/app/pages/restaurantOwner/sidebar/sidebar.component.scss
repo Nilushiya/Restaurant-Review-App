@@ -1,0 +1,39 @@
+.sidebar-card{
+    width: 100%;
+    height: 91.5vh;
+    // position: relative;
+    // right: 12px;
+    background-color: #FBE9E7;
+
+    .sidebar-list{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        
+
+        .sidebar-header{
+
+        }
+
+        .example-icon{
+            width: 100%;
+            display: flex;
+            font-size: 15px;
+            font-weight: 500;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+           &:hover {
+            background-color: #FFCCBC;
+            // border-bottom: 4px solid #FF3D00;
+        } 
+
+             &.active {
+                background-color: #FFCCBC;
+                border-bottom: 4px solid #FF3D00;
+        }
+        }
+    }
+}

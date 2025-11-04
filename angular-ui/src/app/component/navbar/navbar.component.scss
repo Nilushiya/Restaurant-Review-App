@@ -1,0 +1,36 @@
+mat-toolbar{
+    background-color: #FF3D00;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .example-icon{
+      width: 40px;
+      height: 40px;
+      margin: 0 5px 0 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #FF3D00;
+      border: none;
+      border-radius: 20px;
+
+     &:hover {
+    background-color: #fc521f;
+  }
+    }
+
+    
+
+    span{
+      text-align: center;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .example-spacer {
+  flex: 1 1 auto;
+}
+}

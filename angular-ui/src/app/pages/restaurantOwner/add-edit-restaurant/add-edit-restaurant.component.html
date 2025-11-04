@@ -1,0 +1,64 @@
+<div class="container">
+
+  <h2>{{ isEditMode ? "Edit Restaurant" : "Add Restaurant" }}</h2>
+
+  <h3 class="section-title">Basic Information</h3>
+
+  <label>Restaurant Name</label>
+  <input class="text-input" formControlName="name">
+  <div class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+    Restaurant name is required
+  </div>
+
+  <label>Cuisine Type</label>
+  <input class="text-input" formControlName="cuisineType">
+
+  <label>Contact Information</label>
+  <input class="text-input" formControlName="contactInformation">
+
+  <h3 class="section-title">Restaurant Photos</h3>
+  <input type="file" multiple (change)="uploadImages($event)">
+  <div class="photo-grid">
+    <div class="photo-item" *ngFor="let p of previews; let i = index">
+      <img [src]="p.localUri">
+      <button class="remove-btn" (click)="removePhoto(i, p.uploadedUrl)">X</button>
+    </div>
+  </div>
+
+  <h3 class="section-title">Address</h3>
+  <div formGroupName="address">
+    <label>Street Number</label>
+    <input class="text-input" formControlName="streetNumber">
+
+    <label>Street Name</label>
+    <input class="text-input" formControlName="streetName">
+
+    <label>Unit</label>
+    <input class="text-input" formControlName="unit">
+
+    <label>City</label>
+    <input class="text-input" formControlName="city">
+
+    <label>State</label>
+    <input class="text-input" formControlName="state">
+
+    <label>Postal Code</label>
+    <input class="text-input" formControlName="postalCode">
+
+    <label>Country</label>
+    <input class="text-input" formControlName="country">
+  </div>
+
+  <h3 class="section-title">Operating Hours</h3>
+  <div formGroupName="operatingHours">
+    <div *ngFor="let day of ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']" [formGroupName]="day" class="day-row">
+      <strong>{{ day | titlecase }}</strong>
+      <input type="time" formControlName="openTime" class="time-input">
+      <input type="time" formControlName="closeTime" class="time-input">
+    </div>
+  </div>
+
+  <button class="submit-btn" (click)="submit()">
+    {{ isEditMode ? "Update Restaurant" : "Submit Restaurant" }}
+  </button>
+</div>

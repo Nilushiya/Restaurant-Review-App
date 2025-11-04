@@ -1,0 +1,39 @@
+<div class="restaurant-card">
+  <div class="image-wrapper">
+    <img *ngIf="imageUrl; else noImg" [src]="imageUrl" alt="Restaurant Photo" />
+  </div>
+   <ng-template #noImg>
+    <div class="no-photo">
+      No photo available
+    </div>
+  </ng-template>
+  <div class="content">
+    <h2>{{ restaurant.name }}</h2>
+
+    <p class="cuisine">{{ restaurant.cuisineType }}</p>
+    <p class="contact"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="phone_in_talk"></mat-icon> {{ restaurant.contactInformation }}</p>
+
+    <p class="address">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location_on"></mat-icon>
+      {{ restaurant.address.streetNumber }},
+      {{ restaurant.address.streetName }},
+      {{ restaurant.address.city }}
+    </p>
+
+    <div class="hour-box">
+      <h4><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="schedule"></mat-icon>Operating Hours</h4>
+
+      <div class="hours">
+        <div *ngFor="let day of restaurant.operatingHours | keyvalue">
+          <span class="day">{{ day.key | titlecase }}:</span>
+          <span>{{ day.value.openTime }} - {{ day.value.closeTime }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="edit-btn" (click)="onEdit()">Edit</button>
+      <button class="delete-btn" (click)="onDelete()">Delete</button>
+    </div>
+  </div>
+</div>

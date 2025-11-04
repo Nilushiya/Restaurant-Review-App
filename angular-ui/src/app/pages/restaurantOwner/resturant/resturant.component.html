@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>Your Restaurants</h1>
+  <div *ngIf="loading" class="loading">
+    <p>Loading restaurants...</p>
+  </div>
+
+  <div *ngIf="!loading && restaurants.length === 0">
+    <p>No restaurants found.</p>
+  </div>
+
+  <div *ngIf="restaurants.length > 0" class="resturandcard">
+    <app-restaurant-card
+      *ngFor="let r of restaurants"
+      [restaurant]="r"
+      (delete)="onDelete($event)">
+    </app-restaurant-card>
+  </div>
+</div>
