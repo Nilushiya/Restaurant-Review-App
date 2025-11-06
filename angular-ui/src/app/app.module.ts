@@ -30,6 +30,9 @@ import { ReviewComponent } from './pages/restaurantOwner/review/review.component
 import { ResturantComponent } from './pages/restaurantOwner/resturant/resturant.component';
 import { RestaurantCardComponent } from './component/restaurant-card/restaurant-card.component';
 import { HttpTokenInterceptor } from '../app/services/interceptor/http-token.interceptor';
+import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { ProfileCardComponent } from './component/profile-card/profile-card.component';
+import { UserRestaurantCardComponent } from './component/user-restaurant-card/user-restaurant-card.component';
 
 
 export function kcFactory(kcFactory: KeycloakService){
@@ -48,7 +51,10 @@ export function kcFactory(kcFactory: KeycloakService){
     AddEditRestaurantComponent,
     ReviewComponent,
     ResturantComponent,
-    RestaurantCardComponent
+    RestaurantCardComponent,
+    UserProfileComponent,
+    ProfileCardComponent,
+    UserRestaurantCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,50 +1,52 @@
-.profile-card {
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #eeded4cc;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
+// .profile-card {
+//   max-width: 400px;
+//   margin:  auto;
+//   margin-top: 80px;
+//   padding: 20px;
+//   background: #eeded4cc;
+//   border-radius: 16px;
+//   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+//   text-align: center;
 
-  h2{
-    margin-bottom: 20px;
-  }
+//   h2{
+//     margin-bottom: 20px;
+//   }
 
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 25px;
+//   mat-form-field {
+//     width: 100%;
+//     margin-bottom: 25px;
 
-    mat-label{
-        font-size: 15px;
-    }
+//     mat-label{
+//         font-size: 15px;
+//     }
 
-    input{
-        padding: 15px;
-    }
-  }
+//     input{
+//         padding: 15px;
+//     }
+//   }
 
-  .buttons {
+//   .buttons {
 
-        display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
+//         display: flex !important;
+//     flex-direction: column !important;
+//     justify-content: center !important;
+//     align-items: center !important;
     
-    text-align: center;
-    gap: 10px;
+//     text-align: center;
+//     gap: 10px;
 
-    button{
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 65px;
-    height: 40px;
-    border: none;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    }
-  }
-}
+//     button{
+//     display: flex !important;
+//     flex-direction: column !important;
+//     justify-content: center !important;
+//     align-items: center !important;
+//     width: 65px;
+//     height: 40px;
+//     border: none;
+//     color: white;
+//     background: #2196f3;
+//     border-radius: 10px;
+//     font-weight: bold;
+//     }
+//   }
+// }

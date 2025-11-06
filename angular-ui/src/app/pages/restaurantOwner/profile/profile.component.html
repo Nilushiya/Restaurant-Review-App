@@ -1,32 +1,6 @@
-<div class="profile-card">
-  <h2>User Profile</h2>
-
-  <form [formGroup]="profileForm">
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input matInput formControlName="username">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstName">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastName">
-    </mat-form-field>
-
-    <div class="buttons">
-      <button *ngIf="!isEditing"  (click)="enableEdit()">Edit</button>
-      <button *ngIf="isEditing"  (click)="saveChanges()">Save</button>
-    </div>
-
-  </form>
-</div>
+<app-profile-card
+  [profileForm]="profileForm"
+  [isEditing]="isEditing"
+  (edit)="enableEdit()"
+  (save)="saveChanges()"
+></app-profile-card>

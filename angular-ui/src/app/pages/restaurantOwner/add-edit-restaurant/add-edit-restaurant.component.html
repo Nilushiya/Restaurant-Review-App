@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="formLoaded" [formGroup]="form">
 
   <h2>{{ isEditMode ? "Edit Restaurant" : "Add Restaurant" }}</h2>
 
@@ -6,9 +6,6 @@
 
   <label>Restaurant Name</label>
   <input class="text-input" formControlName="name">
-  <div class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
-    Restaurant name is required
-  </div>
 
   <label>Cuisine Type</label>
   <input class="text-input" formControlName="cuisineType">
@@ -17,7 +14,7 @@
   <input class="text-input" formControlName="contactInformation">
 
   <h3 class="section-title">Restaurant Photos</h3>
-  <input type="file" multiple (change)="uploadImages($event)">
+  <input type="file" #fileInput multiple (change)="uploadImages($event)">
   <div class="photo-grid">
     <div class="photo-item" *ngFor="let p of previews; let i = index">
       <img [src]="p.localUri">
@@ -51,14 +48,26 @@
 
   <h3 class="section-title">Operating Hours</h3>
   <div formGroupName="operatingHours">
-    <div *ngFor="let day of ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']" [formGroupName]="day" class="day-row">
-      <strong>{{ day | titlecase }}</strong>
-      <input type="time" formControlName="openTime" class="time-input">
-      <input type="time" formControlName="closeTime" class="time-input">
+    <div class="operatinghead">
+      <p>Week</p>
+      <p>OpenTime</p>
+      <p>CloseTime</p>
+    </div>
+    <div *ngFor="let day of weekDays; trackBy: trackDay" [formGroupName]="day" >
+      <div class="day-row">
+        <strong>{{ day | titlecase }}</strong>
+        <input type="time" formControlName="openTime" class="time-input">
+        <input type="time" formControlName="closeTime" class="time-input">
+      </div>
+      
+      <div class="error" *ngIf="form.get('operatingHours')?.get(day)?.errors?.['requiredBoth']">
+        Both open & close time required if one is entered
+      </div>
     </div>
   </div>
 
-  <button class="submit-btn" (click)="submit()">
-    {{ isEditMode ? "Update Restaurant" : "Submit Restaurant" }}
+  <button class="submit" (click)="submit()">
+    {{ isEditMode ? "Update" : "Submit" }}
   </button>
+
 </div>

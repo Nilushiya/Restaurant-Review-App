@@ -1,1 +1,39 @@
-<p>user-dashboard works!</p>
+<div class="userDashBoard">
+    <div class="overlay">
+        <h1 class="center-text">Discover Your Next Favorite Restaurant</h1>
+        <p>Read authentic reviews from earl diners and find the perfect spot for your next meal.</p>
+    </div>
+   <div class="search-box">
+  <input type="text"
+         placeholder="Search restaurants..."
+         [(ngModel)]="searchQuery">
+
+  <button (click)="onSearchClick()">Search</button>
+</div>
+
+
+<div class="restaurant-container">
+
+  <div *ngIf="loading">Loading...</div>
+
+  <div *ngIf="!loading && restaurants.length === 0">
+    No restaurants found.
+  </div>
+
+  <div class="list">
+    <restaurant-card
+      *ngFor="let r of restaurants"
+      [restaurant]="r">
+    </restaurant-card>
+  </div>
+
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="size"
+    [pageIndex]="page"
+    (page)="pageChange($event.pageIndex)">
+  </mat-paginator>
+</div>
+
+</div>
+</div>
