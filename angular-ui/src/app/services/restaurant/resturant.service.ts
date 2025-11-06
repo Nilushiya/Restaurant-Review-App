@@ -39,6 +39,10 @@ export class ResturantService {
   return this.http.get(`${this.API_BASE_URL}/restaurantByOwner`, { observe: 'response' });
   }
 
+  getRestaurantsById(id:string) {
+  return this.http.get(`${this.API_BASE_URL}/${id}`, { observe: 'response' });
+  }
+
   deleteRestaurant(id: string){
     return this.http.delete(`${this.API_BASE_URL}/${id}`,{ observe: 'response' });
   }

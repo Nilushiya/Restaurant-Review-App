@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 // import { CodeInputModule } from '@angular/core';
 
@@ -33,6 +34,7 @@ import { HttpTokenInterceptor } from '../app/services/interceptor/http-token.int
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { ProfileCardComponent } from './component/profile-card/profile-card.component';
 import { UserRestaurantCardComponent } from './component/user-restaurant-card/user-restaurant-card.component';
+import { RestaurantDetailsComponent } from './pages/user/restaurant-details/restaurant-details.component';
 
 
 export function kcFactory(kcFactory: KeycloakService){
@@ -54,7 +56,8 @@ export function kcFactory(kcFactory: KeycloakService){
     RestaurantCardComponent,
     UserProfileComponent,
     ProfileCardComponent,
-    UserRestaurantCardComponent
+    UserRestaurantCardComponent,
+    RestaurantDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ export function kcFactory(kcFactory: KeycloakService){
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTooltipModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',

@@ -1,0 +1,34 @@
+.resturant-details{
+    margin-top: 70px;
+}
+.neaarby-resturant {
+  margin-top: 20px;
+
+  h4{
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .horizontal-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 2px;
+}
+
+app-user-restaurant-card {
+  min-width: calc((100% / 3) - 20px);
+  flex: 0 0 auto;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+}

@@ -1,1 +1,33 @@
-<p>user-restaurant-card works!</p>
+<div class="card">
+  <div class="image-wrapper">
+    <img *ngIf="imageUrl; else noImg" [src]="imageUrl" alt="Restaurant Photo" />
+  </div>
+   <ng-template #noImg>
+    <div class="no-photo">
+      No photo available
+    </div>
+  </ng-template>
+
+  <div class="card-body">
+    <div class="body-left">
+        <h3>{{ restaurant.name }}</h3>
+        <p>{{ restaurant.cuisineType }}</p>
+        <div class="rateing">
+            <mat-icon aria-hidden="false" class="star-icon" aria-label="Example home icon" fontIcon="star"></mat-icon>
+            <p>{{ restaurant.averageRating }}</p>
+        </div>
+    </div>
+    <div class="body-right">
+        <button class="favorite tooltip-btn">
+            <mat-icon fontIcon="favorite"></mat-icon>
+            <span class="tooltip-text">Add to Favorites</span>
+        </button>
+
+        <button class="visible tooltip-btn" [routerLink]="['/restaurant-details', restaurant.id]">
+            <mat-icon fontIcon="visibility"></mat-icon>
+            <span class="tooltip-text">View Details</span>
+        </button>
+    </div>
+  </div>
+
+</div>

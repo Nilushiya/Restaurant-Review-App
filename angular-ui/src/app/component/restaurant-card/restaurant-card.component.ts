@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { KeycloakService } from 'src/app/services/keycloak/keycloak.service';
 import { PhotoService } from 'src/app/services/photo/photo.service';
 
 interface OperatingDay {
@@ -41,22 +42,28 @@ interface Restaurant {
   templateUrl: './restaurant-card.component.html',
   styleUrls: ['./restaurant-card.component.scss']
 })
-export class RestaurantCardComponent implements OnInit {
+export class RestaurantCardComponent implements OnChanges {
   @Input() restaurant!: Restaurant;
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<string>();
 
+  userHasAdminOrOwnerRole: boolean = false;
   constructor(
-    private photoService: PhotoService
+    private photoService: PhotoService,
   ){}
   
   imageUrl: string = '';
 
-  ngOnInit(): void {
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['restaurant'] && this.restaurant) {
+    console.log("Restaurant received:", this.restaurant);
+
     if (this.restaurant?.photos?.length > 0) {
       this.imageUrl = this.photoService.getPhoto(this.restaurant.photos[0].url);
+      console.log("Image URL:", this.imageUrl);
     }
   }
+}
 
   onDelete() {
     console.log("id:",this.restaurant.id);

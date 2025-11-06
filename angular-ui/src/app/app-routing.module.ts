@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/restaurantOwner/profile/profile.compon
 import { AddEditRestaurantComponent } from './pages/restaurantOwner/add-edit-restaurant/add-edit-restaurant.component';
 import { ReviewComponent } from './pages/restaurantOwner/review/review.component';
 import { ResturantComponent } from './pages/restaurantOwner/resturant/resturant.component';
+import { RestaurantDetailsComponent } from './pages/user/restaurant-details/restaurant-details.component';
 
 const routes: Routes = [
   {
@@ -44,8 +45,13 @@ const routes: Routes = [
   {
     path:'user-dashboard',
     component:UserDashboardComponent,
-    
-  }
+    pathMatch:'full'
+  },
+  {
+    path:'restaurant-details/:id',
+    component:RestaurantDetailsComponent,
+    pathMatch:'full'
+  },
 ];
 
 @NgModule({

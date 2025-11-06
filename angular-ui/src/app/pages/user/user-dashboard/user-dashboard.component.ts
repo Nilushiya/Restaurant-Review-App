@@ -1,53 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { ResturantService } from 'src/app/services/restaurant/resturant.service';
+import { ResturantService } from '../../../services/restaurant/resturant.service';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.scss']
+  styleUrls: ['./user-dashboard.component.scss'],
 })
-export class UserDashboardComponent implements OnInit{
-  restaurants: any[] = [];
-  searchQuery = '';
-  loading = false;
+export class UserDashboardComponent implements OnInit {
 
-  page = 0;
-  size = 6;
-  totalElements = 0;
+  restaurants: any[] = [];
+  page: number = 1;
+  size: number = 6;
+  totalPages: number = 1;
+  searchQuery: string = '';
+  loading: boolean = false;
 
   constructor(private restaurantService: ResturantService) {}
 
-  ngOnInit() {
-    this.fetchRestaurants();
+  ngOnInit(): void {
+    this.getRestaurants(1); // First Load (NO SEARCH)
   }
 
-  fetchRestaurants() {
+  getRestaurants(page: number) {
     this.loading = true;
 
-    this.restaurantService.searchRestaurants({
-      q: this.searchQuery,
-      page: this.page,
-      size: this.size
-    }).subscribe({
-      next: (res:any) => {
-        console.log("res:",res);
-        this.restaurants = res.content;
-        this.totalElements = res.totalElements;
-        this.loading = false;
+    const params: any = { page, size: this.size };
+
+    if (this.searchQuery.trim() !== '') {
+      params.q = this.searchQuery;
+    }
+
+    this.restaurantService.searchRestaurants(params).subscribe({
+      next: (res) => {
+        this.restaurants = res.content || [];
+        this.totalPages = res.totalPages || 1;
+        this.page = page;
       },
-      error: () => {
-        this.loading = false;
-      }
+      error: (err) => console.error('Error:', err),
+      complete: () => (this.loading = false),
     });
   }
 
-  onSearchClick() {
-    this.page = 0; 
-    this.fetchRestaurants();
+  search() {
+    if (this.searchQuery.trim() === '') return;
+    this.getRestaurants(1);
   }
 
-  pageChange(page: number) {
-    this.page = page;
-    this.fetchRestaurants();
+  reset() {
+    this.searchQuery = '';
+    this.getRestaurants(1);
+  }
+
+  changePage(p: number) {
+    if (p >= 1 && p <= this.totalPages) {
+      this.getRestaurants(p);
+    }
   }
 }

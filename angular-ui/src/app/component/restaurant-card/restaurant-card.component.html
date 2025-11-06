@@ -32,8 +32,8 @@
     </div>
 
     <div class="actions">
-      <button class="edit-btn" (click)="onEdit()">Edit</button>
-      <button class="delete-btn" (click)="onDelete()">Delete</button>
+      <button  *ngIf="userHasAdminOrOwnerRole"  class="edit-btn" (click)="onEdit()">Edit</button>
+      <button  *ngIf="userHasAdminOrOwnerRole"  class="delete-btn" (click)="onDelete()">Delete</button>
     </div>
   </div>
 </div>

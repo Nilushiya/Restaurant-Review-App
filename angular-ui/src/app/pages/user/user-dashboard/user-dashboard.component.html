@@ -1,39 +1,57 @@
 <div class="userDashBoard">
-    <div class="overlay">
-        <h1 class="center-text">Discover Your Next Favorite Restaurant</h1>
-        <p>Read authentic reviews from earl diners and find the perfect spot for your next meal.</p>
-    </div>
-   <div class="search-box">
-  <input type="text"
-         placeholder="Search restaurants..."
-         [(ngModel)]="searchQuery">
-
-  <button (click)="onSearchClick()">Search</button>
-</div>
-
-
-<div class="restaurant-container">
-
-  <div *ngIf="loading">Loading...</div>
-
-  <div *ngIf="!loading && restaurants.length === 0">
-    No restaurants found.
+  <div class="overlay">
+      <h1 class="center-text">Discover Your Next Favorite Restaurant</h1>
+      <p>Read authentic reviews from early diners and find the perfect spot for your next meal.</p>
   </div>
-
-  <div class="list">
-    <restaurant-card
-      *ngFor="let r of restaurants"
-      [restaurant]="r">
-    </restaurant-card>
-  </div>
-
-  <mat-paginator
-    [length]="totalElements"
-    [pageSize]="size"
-    [pageIndex]="page"
-    (page)="pageChange($event.pageIndex)">
-  </mat-paginator>
 </div>
 
+<div class="search-box">
+  <input
+    type="text"
+    class="search-input"
+    [(ngModel)]="searchQuery"
+    placeholder="Search restaurants..."
+  />
+  <button class="searchbutton" (click)="search()">    
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+  </button>
+  <button class="resetbtn" (click)="reset()">Reset</button>
 </div>
+
+
+<div class="loader" *ngIf="loading">
+  <p>Loading...</p>
 </div>
+
+
+<div class="res-grid" *ngIf="!loading">
+  <app-user-restaurant-card
+    *ngFor="let r of restaurants"
+    [restaurant]="r">
+  </app-user-restaurant-card>
+
+  <p *ngIf="restaurants?.length === 0" class="no-data">
+    No restaurants found
+  </p>
+</div>
+
+
+<div class="pagination" *ngIf="totalPages > 1">
+  <button (click)="changePage(page-1)" [disabled]="page===1" class="leftarrow">
+    <mat-icon aria-hidden="false" class="star-icon" aria-label="Example home icon" fontIcon="keyboard_arrow_left"></mat-icon>
+  </button>
+
+  <button
+    class="numbtn"
+    *ngFor="let p of [].constructor(totalPages); let i = index"
+    (click)="changePage(i+1)"
+    [class.active]="page===i+1">
+    {{ i + 1 }}
+  </button>
+
+  <button (click)="changePage(page+1)" [disabled]="page===totalPages" class="rightarrow">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="chevron_right"></mat-icon>
+  </button>
+</div>
+
+

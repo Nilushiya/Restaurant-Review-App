@@ -1,0 +1,28 @@
+<div class="resturant-details" *ngIf="full_restaurant">
+    
+    <!-- Main Restaurant Card -->
+    <app-restaurant-card [restaurant]="full_restaurant"></app-restaurant-card>
+
+    <div class="reviews">
+        <h2>Reviews</h2>
+    </div>
+
+    <div class="neaarby-resturant">
+        <h4>Nearby Restaurants</h4>
+        <p *ngIf="restaurants.length === 0">No nearby restaurants found</p>
+        <div
+            class="horizontal-scroll"
+            #scrollContainer
+            (scroll)="onHorizontalScroll(scrollContainer)"
+        >
+            <app-user-restaurant-card
+            *ngFor="let r of restaurants"
+            [restaurant]="r"
+            >
+            </app-user-restaurant-card>
+
+            <div class="loading-more" *ngIf="loading">Loading...</div>
+        </div>
+    </div>
+
+</div>
