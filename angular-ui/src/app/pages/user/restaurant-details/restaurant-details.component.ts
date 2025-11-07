@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResturantService } from 'src/app/services/restaurant/resturant.service';
+import { ReviewService } from 'src/app/services/review/review.service';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -22,17 +23,34 @@ export class RestaurantDetailsComponent implements OnInit{
     private router: Router,
     private restaurantService: ResturantService,
     private route: ActivatedRoute,
+    private reviewService: ReviewService,
   ) {}
 
   ngOnInit(): void {
-    console.log("view");
     this.route.paramMap.subscribe(params => {
     const id = params.get('id');
     if (id) {
-      console.log("id have");
       this.getrestaurantByID(id);
+      // this.listReviewsbyRestaurant(1,id);
     }
   });
+
+  }
+
+  listReviewsbyRestaurant(page: number,id:string){
+    const params: any = {
+       page: page,
+       size: this.size,
+      };
+      this.reviewService.listReviews(params,id).subscribe({
+          next: (res) => {
+          console.log("res review:",res.content);
+          this.full_restaurant = res.content || [];
+        },
+        error: (err) => console.error('Error:', err),
+        complete: () => (this.loading = false),
+      })
+
   }
 
   getrestaurantByID(id: string){
@@ -43,6 +61,7 @@ export class RestaurantDetailsComponent implements OnInit{
         this.latitude= this.full_restaurant.geoLocation.latitude;
         this.longitude=this.full_restaurant.geoLocation.longitude;
         console.log("respose restaurant:",this.full_restaurant,this.latitude);
+        this.listReviewsbyRestaurant(1, id);
         this.getNearByRestaurants(1);
       },
       error: (err) => console.error('Error:', err),
@@ -74,24 +93,16 @@ console.log("geo:",this.latitude);
     });
   }
 
-  // changePage(p: number) {
-  //   if (p >= 1 && p <= this.totalPages) {
-  //     this.getNearByRestaurants(p);
-  //   }
-  // }
-
 onHorizontalScroll(div: HTMLElement) {
   const atRightEnd =
     Math.ceil(div.scrollLeft + div.clientWidth) >= div.scrollWidth - 10;
 
   const atLeftEnd = div.scrollLeft <= 0;
 
-  // Load next page
   if (atRightEnd && !this.loading && this.page < this.totalPages) {
     this.loadMoreNext();
   }
 
-  // Load previous page
   if (atLeftEnd && !this.loading && this.page > 1) {
     this.loadMorePrevious();
   }
@@ -102,6 +113,6 @@ loadMoreNext() {
 }
 
 loadMorePrevious() {
-  this.getNearByRestaurants(this.page - 1);
+    this.getNearByRestaurants(this.page - 1);
 }
 }

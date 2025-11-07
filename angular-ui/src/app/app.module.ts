@@ -35,6 +35,7 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 import { ProfileCardComponent } from './component/profile-card/profile-card.component';
 import { UserRestaurantCardComponent } from './component/user-restaurant-card/user-restaurant-card.component';
 import { RestaurantDetailsComponent } from './pages/user/restaurant-details/restaurant-details.component';
+import { ReviewCardComponent } from './component/review-card/review-card.component';
 
 
 export function kcFactory(kcFactory: KeycloakService){
@@ -57,7 +58,8 @@ export function kcFactory(kcFactory: KeycloakService){
     UserProfileComponent,
     ProfileCardComponent,
     UserRestaurantCardComponent,
-    RestaurantDetailsComponent
+    RestaurantDetailsComponent,
+    ReviewCardComponent
   ],
   imports: [
     BrowserModule,

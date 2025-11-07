@@ -9,7 +9,7 @@ import { ResturantService } from '../../../services/restaurant/resturant.service
 export class UserDashboardComponent implements OnInit {
 
   restaurants: any[] = [];
-  page: number = 1;
+  page: number =1;
   size: number = 6;
   totalPages: number = 1;
   searchQuery: string = '';
@@ -43,12 +43,12 @@ export class UserDashboardComponent implements OnInit {
 
   search() {
     if (this.searchQuery.trim() === '') return;
-    this.getRestaurants(1);
+    this.getRestaurants(0);
   }
 
   reset() {
     this.searchQuery = '';
-    this.getRestaurants(1);
+    this.getRestaurants(0);
   }
 
   changePage(p: number) {

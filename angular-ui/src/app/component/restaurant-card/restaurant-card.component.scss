@@ -1,5 +1,6 @@
 .restaurant-card {
   display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 500px;
   margin: 15px auto;
@@ -12,8 +13,11 @@
   &:hover {
     transform: translateY(-3px);
   }
-
-  .image-wrapper {
+  .restaurantcard-top{
+    display: flex;
+    flex-direction: row;
+    .image-wrapper {
+    border-radius: 10px;
     width: 40%;
     height: 180px;
     overflow: hidden;
@@ -22,59 +26,118 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      padding: 10px;
     }
   }
 
   .content {
     width: 60%;
     padding: 16px;
+    padding-top: 30px;
 
     h2 {
       margin: 0;
       font-size: 22px;
-      font-weight: 600;
+      font-weight: bold;
     }
 
     .cuisine {
+      width: 60%;
       margin: 2px 0;
-      color: #555;
+      color: white;
+      padding-left: 10px;
+      font-weight: bold;
+      background-color: #f74803;
     }
 
     .contact,
     .address {
-      margin: 4px 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: start;
       font-size: 14px;
+
+      p{
+        padding-left: 3px;
+      }
     }
 
-    .hour-box {
+    .contact{
+      margin-top: 10px;
+    }
+  }}
+  
+  .resturancart-bottom{
+      .hour-box {
       margin-top: 10px;
       background: #fafafa;
       padding: 8px;
       border-radius: 6px;
       border: 1px solid #eee;
+      margin: 20px;
 
-      h4 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: 600;
-      }
+      .hour-hedear{
+        display: flex;
+        flex-direction: row;
+        // background-color: #2196f3;
+        align-self: center;
+        justify-items: center;
+        font-weight: bold;
 
-      .hours {
-        font-size: 13px;
-        margin-top: 5px;
-
-        .day {
+        h4 {
+          margin: 0;
+          font-size: 14px;
           font-weight: 600;
-        }
-      }
+          justify-self: center;
+          align-self: center;
+      }   
+  }
+
+  .hours {
+  margin-top: 15px;
+  padding: 12px 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+
+  .day-time {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 15px;
+    color: #333;
+    border-bottom: 1px solid #f3f3f3;
+
+    &:last-child {
+      border-bottom: none;
     }
+
+    .day {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .day-value {
+      font-weight: 500;
+      color: #666;
+    }
+  }
+}
+}
 
     .actions {
       margin-top: 12px;
       display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
+      padding-bottom: 20px;
 
       button {
+        width: 100px;
         border: none;
         padding: 6px 14px;
         border-radius: 6px;
@@ -92,5 +155,5 @@
         }
       }
     }
+    }
   }
-}

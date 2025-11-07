@@ -50,6 +50,7 @@ export class RestaurantCardComponent implements OnChanges {
   userHasAdminOrOwnerRole: boolean = false;
   constructor(
     private photoService: PhotoService,
+    private keyCloakService: KeycloakService,
   ){}
   
   imageUrl: string = '';
@@ -63,6 +64,8 @@ ngOnChanges(changes: SimpleChanges): void {
       console.log("Image URL:", this.imageUrl);
     }
   }
+  const roles = this.keyCloakService.profile?.roles || [];
+    this.userHasAdminOrOwnerRole =roles.includes("admin") || roles.includes("restaurantAdmin");
 }
 
   onDelete() {

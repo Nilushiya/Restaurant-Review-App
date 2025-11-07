@@ -1,10 +1,14 @@
 <div class="resturant-details" *ngIf="full_restaurant">
     
-    <!-- Main Restaurant Card -->
-    <app-restaurant-card [restaurant]="full_restaurant"></app-restaurant-card>
+    <div class="details-top">
+        <app-restaurant-card [restaurant]="full_restaurant"></app-restaurant-card>
 
-    <div class="reviews">
-        <h2>Reviews</h2>
+        <div class="reviews">
+            <h2>Reviews</h2>
+            <div class="reviews-card">
+                <app-review-card></app-review-card>
+            </div>
+        </div>
     </div>
 
     <div class="neaarby-resturant">

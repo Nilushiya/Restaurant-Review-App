@@ -1,8 +1,15 @@
 .resturant-details{
     margin-top: 70px;
+
+    .details-top{
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-around;
+    }
 }
 .neaarby-resturant {
   margin-top: 20px;
+  width: 100%;
 
   h4{
     font-weight: bold;

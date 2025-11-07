@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -61,8 +62,13 @@ public class ReviewController {
                     sort = "datePosted",
                     direction = Sort.Direction.DESC) Pageable pageable
             ) {
+        Pageable correctedPageable = PageRequest.of(
+                Math.max(pageable.getPageNumber() - 1, 0),
+                pageable.getPageSize(),
+                pageable.getSort()
+        );
         return reviewService
-                .listReviews(restaurantId, pageable)
+                .listReviews(restaurantId, correctedPageable)
                 .map(reviewMapper::toDto);
     }
 
